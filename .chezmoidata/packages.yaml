@@ -1,0 +1,6 @@
+packages:
+  debian:
+    - curl
+    - fzf
+    - git
+    - gnupg
