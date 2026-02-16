@@ -1,0 +1,9 @@
+{{ $arch := "x86_64" -}}
+{{ if eq .chezmoi.arch "arm64" -}}
+{{ $arch = "aarch64" -}}
+{{ end -}}
+
+[".local/lib/helix"]
+    type = "archive"
+    url = "https://github.com/helix-editor/helix/releases/download/{{ .helix.version }}/helix-{{ .helix.version }}-{{ $arch }}-linux.tar.xz"
+    stripComponents = 1

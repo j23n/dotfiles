@@ -1,0 +1,5 @@
+[packages]
+debian = ["curl", "fzf", "git", "gnupg", "fd-find", "ripgrep", "tmux"]
+
+[helix]
+version = "25.07.1"
