@@ -1,0 +1,29 @@
+[user]
+	email = mail@j23n.com
+	name = Johannes
+	signingkey = 0CFA510FD53CF8C4
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[alias]
+    merge-log = "!f() { git merge --no-ff -m \"Merge $1$(echo; echo; git log main..$1 --pretty=format:'- %s')\" $1; }; f"
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+    conflictStyle = zdiff3
+
