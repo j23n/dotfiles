@@ -1,0 +1,11 @@
+[Unit]
+Description=Offsite backup prune timer
+Conflicts=offsite-backup.service
+
+[Timer]
+OnCalendar=daily UTC
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

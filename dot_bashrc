@@ -111,6 +111,10 @@ export LEDGER_FILE=$HOME/documents/finance/ledger/2025.journal
 # basic config
 export EDITOR=hx
 
+# px
+source ~/.local/share/px/px.sh
+source ~/.local/share/px/completions/px.bash
+
 # Load fzf support
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 

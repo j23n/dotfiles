@@ -1,0 +1,23 @@
+[[language]]
+name = "python"
+language-servers = [ { name = "ty", except-features = [ "format" ] }, "ruff"]
+auto-format = true
+scope = "source.python"
+
+[language-server.pylsp.config.pylsp.plugins]
+ruff.enabled = false
+autopep8.enabled = false
+flake8.enabled = false
+mccabe.enabled = false
+pycodestyle.enabled = false
+pyflakes.enabled = false
+pylint.enabled = false
+yapf.enabled = false
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language.formatter]
+command = "ruff"
+args = ["format", "-"]

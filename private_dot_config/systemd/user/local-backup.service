@@ -1,0 +1,17 @@
+[Unit]
+Description=Local backup with restic
+OnFailure=status-notification@%n.service
+
+[Service]
+Type=simple
+ExecStartPre=restic unlock
+ExecStartPre=sleep 5
+ExecStart=restic \
+    --verbose \
+    --one-file-system \
+    --tag=systemd.timer \
+    --exclude-file=/home/johannes/.config/restic/exclude.txt \
+    backup \
+    /home/johannes/
+EnvironmentFile=%h/.config/restic/local-backup.conf
+
