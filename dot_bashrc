@@ -95,8 +95,8 @@ fi
 # Source cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# Added by Radicle.
-export PATH="$PATH:$HOME/.radicle/bin"
+# Set path
+export PATH="$PATH:$HOME/.radicle/bin:$HOME/.local/bin"
 
 # GPG config
 export GPG_TTY=$(tty)
