@@ -17,7 +17,6 @@ ExecStartPost=restic forget \
     --prune \
     --verbose \
     --group-by "paths,tags" \
-    --keep-hourly $RETENTION_HOURLY \
     --keep-daily $RETENTION_DAYS \
     --keep-weekly $RETENTION_WEEKS \
     --keep-monthly $RETENTION_MONTHS \
