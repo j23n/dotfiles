@@ -3,4 +3,4 @@ Description=Failure notification for %i
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/notify-send "Service Failed" "%i has failed" 
+ExecStart=%h/.local/bin/backup-notify %i

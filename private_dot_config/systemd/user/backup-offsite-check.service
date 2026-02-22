@@ -1,0 +1,8 @@
+[Unit]
+Description=Offsite backup integrity check
+OnFailure=backup-notify@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=restic check
+EnvironmentFile=%h/.config/restic/hetzner-backup.conf

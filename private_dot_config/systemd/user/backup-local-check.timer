@@ -1,0 +1,9 @@
+[Unit]
+Description=Weekly local backup integrity check
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

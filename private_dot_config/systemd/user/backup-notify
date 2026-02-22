@@ -1,0 +1,24 @@
+#!/bin/bash
+# Sends a rich failure notification for backup services.
+# Called by status-notification@.service via OnFailure=.
+# Install to ~/.local/bin/backup-notify and make executable.
+
+UNIT="$1"  # e.g., local-backup.service
+LABEL="${UNIT%.service}"
+TIMESTAMP_FILE="$HOME/.local/share/backup-timestamps/$LABEL"
+
+# Last log lines from the failed unit
+LOGS=$(journalctl --user -u "$UNIT" -n 8 --no-pager -o cat 2>/dev/null)
+
+# Read locally saved timestamp from last successful backup
+if [[ -f "$TIMESTAMP_FILE" ]]; then
+    LAST_SNAPSHOT=$(cat "$TIMESTAMP_FILE")
+else
+    LAST_SNAPSHOT="(no successful backup recorded)"
+fi
+
+notify-send -u critical \
+    "Backup failed: ${LABEL}" \
+    "Last successful backup: ${LAST_SNAPSHOT}
+
+${LOGS}"

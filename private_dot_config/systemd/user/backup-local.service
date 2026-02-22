@@ -1,0 +1,25 @@
+[Unit]
+Description=Local backup with restic
+OnFailure=backup-notify@%n.service
+
+[Service]
+Type=oneshot
+ExecStartPre=restic unlock
+ExecStart=restic \
+    --verbose \
+    --one-file-system \
+    --tag=systemd.timer \
+    --exclude-file=%h/.config/restic/exclude.txt \
+    backup \
+    %h/
+ExecStartPost=-/bin/bash -c 'mkdir -p %h/.local/share/backup-timestamps && date --iso-8601=seconds > %h/.local/share/backup-timestamps/backup-local'
+ExecStartPost=restic forget \
+    --prune \
+    --verbose \
+    --group-by "paths,tags" \
+    --keep-hourly $RETENTION_HOURLY \
+    --keep-daily $RETENTION_DAYS \
+    --keep-weekly $RETENTION_WEEKS \
+    --keep-monthly $RETENTION_MONTHS \
+    --keep-yearly $RETENTION_YEARS
+EnvironmentFile=%h/.config/restic/local-backup.conf
