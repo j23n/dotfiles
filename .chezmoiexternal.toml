@@ -2,8 +2,12 @@
 {{ if eq .chezmoi.arch "arm64" -}}
 {{ $arch = "aarch64" -}}
 {{ end -}}
+{{ $os := "linux" -}}
+{{ if eq .chezmoi.os "darwin" -}}
+{{ $os = "macos" -}}
+{{ end -}}
 
 [".local/lib/helix"]
     type = "archive"
-    url = "https://github.com/helix-editor/helix/releases/download/{{ .helix.version }}/helix-{{ .helix.version }}-{{ $arch }}-linux.tar.xz"
+    url = "https://github.com/helix-editor/helix/releases/download/{{ .helix.version }}/helix-{{ .helix.version }}-{{ $arch }}-{{ $os }}.tar.xz"
     stripComponents = 1

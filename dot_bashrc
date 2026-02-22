@@ -89,6 +89,10 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  elif command -v brew >/dev/null 2>&1; then
+    _brew_completion="$(brew --prefix)/etc/profile.d/bash_completion.sh"
+    [ -f "$_brew_completion" ] && . "$_brew_completion"
+    unset _brew_completion
   fi
 fi
 
@@ -100,7 +104,7 @@ export PATH="$PATH:$HOME/.radicle/bin:$HOME/.local/bin"
 
 # GPG config
 export GPG_TTY=$(tty)
-if command -v gpgconf >/dev/null 2>&1 && [ -x /usr/bin/gpg-connect-agent ]; then
+if command -v gpgconf >/dev/null 2>&1 && command -v gpg-connect-agent >/dev/null 2>&1; then
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent 2>/dev/null
 fi
@@ -116,7 +120,13 @@ source ~/.local/share/px/px.sh
 source ~/.local/share/px/completions/px.bash
 
 # Load fzf support
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+elif command -v brew >/dev/null 2>&1; then
+    _fzf_shell="$(brew --prefix)/opt/fzf/shell/key-bindings.bash"
+    [ -f "$_fzf_shell" ] && source "$_fzf_shell"
+    unset _fzf_shell
+fi
 
 # Aliases
-alias fd='fdfind'
+command -v fdfind >/dev/null 2>&1 && alias fd='fdfind'
