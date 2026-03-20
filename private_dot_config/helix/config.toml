@@ -1,9 +1,4 @@
-[editor.file-picker]
-hidden = false
-
 [editor]
+soft-wrap.enable = true
 auto-pairs = false
-
-[editor.soft-wrap]
-enable = true
-
+file-picker.hidden = false

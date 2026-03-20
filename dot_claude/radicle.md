@@ -99,6 +99,13 @@ git push rad HEAD:refs/patches
 # Editor opens: first line = title, then blank line, then description
 ```
 
+### Update a patch (add a revision)
+```bash
+rad patch checkout <patch-id>   # creates branch patch/<id> tracking the patch
+# make commits on patch/<id>, or cherry-pick from another branch
+git push rad                    # creates a new revision on the patch
+```
+
 ### Merge a patch (as delegate)
 ```bash
 rad patch checkout <patch-id>
@@ -155,7 +162,7 @@ File: `~/.radicle/config.json` (or `$RAD_HOME/config.json`)
 7. **Web UI is read-only** — Use CLI or Desktop app for interaction
 8. **NAT traversal limited** — Nodes behind NAT rely on seed nodes
 9. **No built-in GitHub mirroring** — Manual dual-remote setup needed
-10. **Per-line review comments** only in Desktop app, not CLI
+10. **Inline review comments not yet implemented** — `rad patch show -v` only shows top-level "reviewed" status; no CLI command surfaces inline comments. General patch comments via `rad patch comment <ID> --message "..."`. Inline review is a planned near-term feature per the official guide.
 
 ## References
 
