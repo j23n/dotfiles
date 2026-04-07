@@ -1,2 +1,3 @@
 scripts/work/
 *.local
+!create_dot_*.local

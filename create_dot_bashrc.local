@@ -1,0 +1,5 @@
+# ~/.bashrc.local — machine-local overrides and secrets, not committed to git
+# Populate this file on each machine. chezmoi will never overwrite it.
+
+# export MY_LLM_API_KEY=""
+# export ANTHROPIC_API_KEY=""

@@ -11,10 +11,10 @@
 # For projects not on any package manager. Uncomment and set the URL to have
 # chezmoi manage cloning and updating (runs on `chezmoi update`).
 #
-# [".local/share/px"]
-#     type = "git-repo"
-#     url = "git@github.com:you/px.git"
-#     refreshPeriod = "168h"
+[".local/share/px"]
+    type = "git-repo"
+    url = "git@github.com:j23n/px.git"
+    refreshPeriod = "168h"
 
 # ── External binaries ─────────────────────────────────────────────────────────
 [".local/lib/helix"]
