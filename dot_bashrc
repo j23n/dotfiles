@@ -7,11 +7,9 @@ case $- in
     *) return ;;
 esac
 
-export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-
 # Load shell modules in order
 for _m in env aliases functions prompt; do
-  _f="$DOTFILES/shell/${_m}.sh"
+  _f="$HOME/.config/shell/${_m}.sh"
   [[ -f "$_f" ]] && source "$_f"
 done
 unset _m _f

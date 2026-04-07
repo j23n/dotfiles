@@ -3,8 +3,7 @@
 # Sourced by ~/.bashrc — do not execute directly
 
 # ── Core ──────────────────────────────────────────────────────────────────────
-export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-export PATH="$DOTFILES/scripts/bin:$HOME/.local/bin:$HOME/.radicle/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.radicle/bin:$PATH"
 export EDITOR=hx
 export VISUAL="$EDITOR"
 export PAGER="less -R"

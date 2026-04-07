@@ -12,8 +12,3 @@
 |---|---|
 | *(none yet)* | |
 
-## system/
-
-| Script | Description |
-|---|---|
-| `bootstrap.sh` | Symlink `scripts/bin/` into `~/.local/bin` |
