@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Shared logging helpers — source this file, do not execute directly
-# Usage: source "$DOTFILES/scripts/lib/log.sh"
+# Usage: source "$HOME/.local/share/shell/log.sh"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'

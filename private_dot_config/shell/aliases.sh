@@ -35,6 +35,6 @@ alias gpl="git pull"
 alias glog="git log --oneline --graph --decorate -20"
 
 # ── Dotfiles ──────────────────────────────────────────────────────────────────
-alias dot="cd \$HOME/dotfiles"
+alias dot="chezmoi cd"
 alias dots="chezmoi status"
 alias dotup="chezmoi apply"
