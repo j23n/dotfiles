@@ -7,6 +7,16 @@
 {{ $os = "macos" -}}
 {{ end -}}
 
+# ── Personal project repos ────────────────────────────────────────────────────
+# For projects not on any package manager. Uncomment and set the URL to have
+# chezmoi manage cloning and updating (runs on `chezmoi update`).
+#
+[".local/share/px"]
+    type = "git-repo"
+    url = "git@github.com:j23n/px.git"
+    refreshPeriod = "168h"
+
+# ── External binaries ─────────────────────────────────────────────────────────
 [".local/lib/helix"]
     type = "archive"
     url = "https://github.com/helix-editor/helix/releases/download/{{ .helix.version }}/helix-{{ .helix.version }}-{{ $arch }}-{{ $os }}.tar.xz"
