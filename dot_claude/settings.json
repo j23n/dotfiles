@@ -3,5 +3,30 @@
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true
   },
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\a'",
+            "timeout": 1
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\a'",
+            "timeout": 1
+          }
+        ]
+      }
+    ]
+  }
 }
