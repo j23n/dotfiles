@@ -13,7 +13,7 @@
 #
 [".local/share/px"]
     type = "git-repo"
-    url = "git@github.com:j23n/px.git"
+    url = "https://github.com/j23n/px.git"
     refreshPeriod = "168h"
 
 # ── External binaries ─────────────────────────────────────────────────────────

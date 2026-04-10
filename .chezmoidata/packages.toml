@@ -1,6 +1,7 @@
 [packages]
-debian = ["curl", "fzf", "git", "gnupg", "fd-find", "ripgrep", "tmux"]
-mac = ["curl", "fzf", "git", "gnupg", "fd", "ripgrep", "tmux"]
+debian = ["curl", "fzf", "git", "gnupg", "fd-find", "ripgrep", "tmux", "htop"]
+mac = ["curl", "fzf", "git", "gnupg", "fd", "ripgrep", "tmux", "htop"]
+fedora = ["curl", "fzf", "git", "gnupg", "fd", "ripgrep", "tmux", "htop"]
 
 [helix]
 version = "25.07.1"
