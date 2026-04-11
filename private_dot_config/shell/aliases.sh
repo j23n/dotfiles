@@ -22,7 +22,7 @@ command -v fdfind &>/dev/null && alias fd="fdfind"
 # ── Utilities ─────────────────────────────────────────────────────────────────
 alias grep="grep --color=auto"
 alias df="df -h"
-alias du="du -sh"
+alias du="du -h -d1"
 alias ports="ss -tulpn 2>/dev/null || netstat -tulpn"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 

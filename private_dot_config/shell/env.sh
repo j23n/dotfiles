@@ -11,11 +11,13 @@ export TERM=xterm-256color
 export COLORTERM=truecolor
 
 # ── History ───────────────────────────────────────────────────────────────────
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTSIZE=-1            # unlimited in-memory history
+export HISTFILESIZE=-1        # unlimited on-disk history
 export HISTCONTROL="ignoredups:erasedups"
 shopt -s histappend
 shopt -s checkwinsize
+# Write every command to disk immediately; pull in commands from other terminals
+PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 # ── Debian lesspipe ───────────────────────────────────────────────────────────
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -56,15 +58,8 @@ if command -v mise &>/dev/null; then
   eval "$(mise activate bash)"
 fi
 
-# ── fzf key bindings ──────────────────────────────────────────────────────────
-for _fzf_src in \
-  "$HOME/.fzf.bash" \
-  "/usr/share/doc/fzf/examples/key-bindings.bash" \
-  "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.bash"
-do
-  [[ -f "$_fzf_src" ]] && { source "$_fzf_src"; break; }
-done
-unset _fzf_src
+# ── fzf key bindings & completion ─────────────────────────────────────────────
+command -v fzf &>/dev/null && eval "$(fzf --bash)"
 
 # ── px ────────────────────────────────────────────────────────────────────────
 [[ -f "$HOME/.local/share/px/px.sh" ]]                  && source "$HOME/.local/share/px/px.sh"
