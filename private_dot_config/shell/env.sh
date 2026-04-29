@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
 # Environment variables, PATH, and tool initialisation
-# Sourced by ~/.bashrc — do not execute directly
+# Sourced by ~/.bashrc and ~/.zshrc — do not execute directly
 
 # ── Core ──────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$HOME/.radicle/bin:$PATH"
@@ -11,19 +10,26 @@ export TERM=xterm-256color
 export COLORTERM=truecolor
 
 # ── History ───────────────────────────────────────────────────────────────────
-export HISTSIZE=-1            # unlimited in-memory history
-export HISTFILESIZE=-1        # unlimited on-disk history
-export HISTCONTROL="ignoredups:erasedups"
-shopt -s histappend
-shopt -s checkwinsize
-# Write every command to disk immediately; pull in commands from other terminals
-PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+if [ -n "$ZSH_VERSION" ]; then
+  export HISTSIZE=1000000
+  export SAVEHIST=1000000
+  export HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
+  setopt HIST_IGNORE_DUPS HIST_EXPIRE_DUPS_FIRST SHARE_HISTORY
+  setopt APPEND_HISTORY INC_APPEND_HISTORY
+elif [ -n "$BASH_VERSION" ]; then
+  export HISTSIZE=-1
+  export HISTFILESIZE=-1
+  export HISTCONTROL="ignoredups:erasedups"
+  shopt -s histappend
+  shopt -s checkwinsize
+  PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+fi
 
 # ── Debian lesspipe ───────────────────────────────────────────────────────────
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# ── Bash completion ───────────────────────────────────────────────────────────
-if ! shopt -oq posix; then
+# ── Completion ────────────────────────────────────────────────────────────────
+if [ -n "$BASH_VERSION" ] && ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
@@ -45,7 +51,7 @@ export LEDGER_FILE="$HOME/documents/finance/ledger/2025.journal"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # ── Homebrew (macOS) ──────────────────────────────────────────────────────────
-if [[ $(uname) == Darwin ]]; then
+if [ "$(uname)" = Darwin ]; then
   if [ -x /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   elif [ -x /usr/local/bin/brew ]; then
@@ -54,13 +60,27 @@ if [[ $(uname) == Darwin ]]; then
 fi
 
 # ── mise (runtime version manager) ───────────────────────────────────────────
-if command -v mise &>/dev/null; then
-  eval "$(mise activate bash)"
+if command -v mise >/dev/null 2>&1; then
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(mise activate zsh)"
+  else
+    eval "$(mise activate bash)"
+  fi
 fi
 
 # ── fzf key bindings & completion ─────────────────────────────────────────────
-command -v fzf &>/dev/null && eval "$(fzf --bash)"
+if command -v fzf >/dev/null 2>&1; then
+  if [ -n "$ZSH_VERSION" ]; then
+    eval "$(fzf --zsh)"
+  else
+    eval "$(fzf --bash)"
+  fi
+fi
 
 # ── px ────────────────────────────────────────────────────────────────────────
-[[ -f "$HOME/.local/share/px/px.sh" ]]                  && source "$HOME/.local/share/px/px.sh"
-[[ -f "$HOME/.local/share/px/completions/px.bash" ]]    && source "$HOME/.local/share/px/completions/px.bash"
+[ -f "$HOME/.local/share/px/px.sh" ] && . "$HOME/.local/share/px/px.sh"
+if [ -n "$ZSH_VERSION" ]; then
+  [ -f "$HOME/.local/share/px/completions/_px" ] && fpath+=("$HOME/.local/share/px/completions")
+elif [ -n "$BASH_VERSION" ]; then
+  [ -f "$HOME/.local/share/px/completions/px.bash" ] && . "$HOME/.local/share/px/completions/px.bash"
+fi

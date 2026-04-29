@@ -1,0 +1,15 @@
+# ~/.zshrc — managed by chezmoi, do not edit directly
+# Machine-local overrides go in ~/.zshrc.local
+
+# Non-interactive shells do nothing
+[[ -o interactive ]] || return
+
+# Load shell modules in order
+for _m in env aliases functions prompt; do
+  _f="$HOME/.config/shell/${_m}.sh"
+  [[ -f "$_f" ]] && source "$_f"
+done
+unset _m _f
+
+# Machine-local overrides (not committed to git)
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
